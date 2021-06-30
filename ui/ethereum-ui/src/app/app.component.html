@@ -1,0 +1,48 @@
+<div class="container" style="text-align:left">
+
+
+<div class="card m-3">
+  <div  class="card-header" style="background-color: #fff; color: gray; display: inline-flex;">
+    <div>
+      <h5>Share Image </h5>
+    </div>
+    <div style="float: right; margin-left: 40%;">
+      <span style="padding: 0%;">{{account}}</span>
+    </div>
+  </div>
+  
+  <div class="card-body">
+
+     <div class="form-row">
+        <div class="form-group col-3">
+           <div class="col-md-12 inputGroupContainer">
+            <input type="text" class="form-control" [(ngModel)]="description" placeholder="brief description"/>
+              <div style="padding-top:5%;" class="input-group">
+                <input type='file' accept=".jpg, .jpeg, .png, .bmp, .gif, .mp4" (change)="captureFile($event)" class="form-control-file" />
+              </div>
+
+           </div>
+        </div>
+        <div class="form-group col-8" style="padding-top: 2%;">
+              <div class="text-left">
+                 <button class="btn btn-success" (click)="uploadImage()">Upload</button>
+              </div>
+              <div style="margin-top: 5%;">
+                  <a  href="{{ipfs_image_path}}">{{ipfs_image_path}}</a>
+              </div>
+        </div>    
+     </div>
+  </div>  
+</div>
+<div class="row" style="background-color: #fff; padding: 1%; margin-bottom: 1%;" *ngFor="let image of images">
+  <div class="col-md-2">
+      <img class="mr-3" src="https://ipfs.infura.io/ipfs/{{image.ipfsHash}}" onerror="this.onerror=null;" style="width:100%; height: 100%;">
+  </div>
+  <div class="col-md-10">
+      <h6>{{image.author}}</h6>
+      <h5 class="mt-0 mb-1">{{image.description}}</h5>
+      <small>TIPS: {{web3.utils.fromWei(image.tipAmount, 'Ether')}} ETH</small>
+      <button  style="margin-left: 1%;" type="button" class="btn btn-outline-dark btn-sm" name="{{image.id}}" (click)="tipImageOwner($event.target.name)">Tip this photo</button>
+  </div>
+</div>
+
